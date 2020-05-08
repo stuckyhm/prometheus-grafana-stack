@@ -1,18 +1,5 @@
 
 # prometheus-grafana-stack
-Start the Stack with docker-composer.
-```
-docker-compose up
-```
-
-Grafana: [http://127.0.0.1:3000](http://127.0.0.1:3000)
-Default-User/Passwort: admin/password
-
-Prometheus: [http://127.0.0.1:9090](http://127.0.0.1:9090)
-
-Pushgateway: [http://127.0.0.1:9091](http://127.0.0.1:9091)
-
-## Overview
 ```mermaid
 graph TD
 Z(your Browser) -- :3000 --> A(Prometheus)
@@ -27,4 +14,29 @@ style A fill:#cfdfff,stroke:#333,stroke-width:2px
 style B fill:#cfdfff,stroke:#333,stroke-width:2px
 style D fill:#cfdfff,stroke:#333,stroke-width:2px
 ```
+## Start
+```
+docker-compose up
+```
+
+## Grafana
+Grafana: [http://127.0.0.1:3000](http://127.0.0.1:3000)
+Default-User/Passwort: admin/password
+
+More Infos:
+https://github.com/grafana/grafana
+## Prometheus
+Prometheus: [http://127.0.0.1:9090](http://127.0.0.1:9090)
+
+More Infos:
+https://github.com/prometheus/prometheus
+## Prometheus Pushgateway
+Pushgateway: [http://127.0.0.1:9091](http://127.0.0.1:9091)
+
+Push a simple metric:
+```
+echo "some_metric 3.14" | curl --data-binary @- http://127.0.0.1:9091/metrics/job/some_job
+```
+More Infos:
+https://github.com/prometheus/pushgateway
 
