@@ -1,3 +1,6 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.5.0/mermaid.min.js"></script>
+<link rel="stylesheet" href="./mermaid.css">
+<script>mermaid.initialize({startOnLoad:true});</script>
 
 # prometheus-grafana-stack
 ```mermaid
