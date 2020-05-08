@@ -1,22 +1,6 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.5.0/mermaid.min.js"></script>
-<link rel="stylesheet" href="./mermaid.css">
-<script>mermaid.initialize({startOnLoad:true});</script>
 
 # prometheus-grafana-stack
-```mermaid
-graph TD
-Z(your Browser) -- :3000 --> A(Prometheus)
-A[Grafana] -- :9090 --> B[Prometheus]
-A --> C(other Datasources)
-B -- :9091 --> D[Pushgateway]
-B --> E(your Exporter)
-B --> F(your Exporter)
-G(your App) -- :9091 --> D
-H(your App) -- :9091 --> D
-style A fill:#cfdfff,stroke:#333,stroke-width:2px
-style B fill:#cfdfff,stroke:#333,stroke-width:2px
-style D fill:#cfdfff,stroke:#333,stroke-width:2px
-```
+![Diagram](/docs/diagram.png)
 ## Start
 ```
 docker-compose up
