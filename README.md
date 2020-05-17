@@ -6,25 +6,28 @@
 * [node-exporter](https://github.com/prometheus/node_exporter) - provides host und some container metrics
 * [cAdvisor](https://github.com/google/cadvisor) - provides container metrics
 * [prometheus-docker-sd](https://github.com/stuckyhm/prometheus-docker-sd) - automated service discovery for prometheus
+
+
 ![Diagram](/docs/diagram.png)
-## Start
+## How to use it? 
 ```
+git clone git@github.com:stuckyhm/prometheus-grafana-stack.git
 docker-compose up
 ```
 
-## Grafana
+### Grafana
 Connect to your Instance: [http://127.0.0.1:3000](http://127.0.0.1:3000)
 
 Default-User/Passwort: admin/password
 
 More Infos:
 https://github.com/grafana/grafana
-## Prometheus
+### Prometheus
 Connect to your Instance: [http://127.0.0.1:9090](http://127.0.0.1:9090)
 
 More Infos:
 https://github.com/prometheus/prometheus
-## Prometheus Pushgateway
+### Prometheus Pushgateway
 Connect to your Instance: [http://127.0.0.1:9091](http://127.0.0.1:9091)
 
 Push a simple metric:
