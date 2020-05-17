@@ -1,5 +1,11 @@
 
 # prometheus-grafana-stack
+## What's included?
+* [Prometheus](https://github.com/prometheus/prometheus) - collecting the metrics
+* [Grafana](https://github.com/grafana/grafana) - visualisation of the metrics
+* [node-exporter](https://github.com/prometheus/node_exporter) - provides host und some container metrics
+* [cAdvisor](https://github.com/google/cadvisor) - provides container metrics
+* [prometheus-docker-sd](https://github.com/stuckyhm/prometheus-docker-sd) - automated service discovery for prometheus
 ![Diagram](/docs/diagram.png)
 ## Start
 ```
