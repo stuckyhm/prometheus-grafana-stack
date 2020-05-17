@@ -16,26 +16,42 @@
 git clone git@github.com:stuckyhm/prometheus-grafana-stack.git
 docker-compose up
 ```
+Add the following labels to your containers.
+| label                            | mandatory | default          | description                                         |
+| -------------------------------- | :-------: | ---------------- | --------------------------------------------------- |
+| prometheus-scrape.enabled        |       yes |                  | Must set to "true" for enabled.                     |
+| prometheus-scrape.job_name       |        no | <Container-Name> | Content for the prometheus label "job".             |
+| prometheus-scrape.hostname       |        no | <Container-Name> | Hostname, if it differs from the container name.    |
+| prometheus-scrape.ip_as_hostname |        no |            false | Use the container ip instead of the container name. |
+| prometheus-scrape.port           |        no |             9090 | Port of the metrics endpoint.                       |
+| prometheus-scrape.scheme         |        no |             http | Scheme http or https                                |
+| prometheus-scrape.metrics_path   |        no |         /metrics | Path to the metrics endpoint.                       |
 
-### Grafana
-Connect to your Instance: [http://127.0.0.1:3000](http://127.0.0.1:3000)
+**Important: The Container has to be in the same network that prometheus. At the moment, the stack is connected to default network docker0 (bridge).**
 
-Default-User/Passwort: admin/password
-
-More Infos:
-https://github.com/grafana/grafana
-### Prometheus
-Connect to your Instance: [http://127.0.0.1:9090](http://127.0.0.1:9090)
-
-More Infos:
-https://github.com/prometheus/prometheus
-### Prometheus Pushgateway
+### Metrics via pushdateway
 Connect to your Instance: [http://127.0.0.1:9091](http://127.0.0.1:9091)
 
 Push a simple metric:
 ```
 echo "some_metric 3.14" | curl --data-binary @- http://127.0.0.1:9091/metrics/job/some_job
 ```
-More Infos:
-https://github.com/prometheus/pushgateway
+More Sample at https://github.com/prometheus/pushgateway
 
+## Access the metrics
+### Grafana
+Connect to your Gradana instance: [http://127.0.0.1:3000](http://127.0.0.1:3000)
+
+Default-User/Passwort: admin/password
+
+![Diagram](/docs/grafana.png)
+
+More Infos:
+https://github.com/grafana/grafana
+### Prometheus
+Connect to your instance: [http://127.0.0.1:9090](http://127.0.0.1:9090)
+
+![Diagram](/docs/prometheus.png)
+
+More Infos:
+https://github.com/prometheus/prometheus
