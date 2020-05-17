@@ -11,9 +11,8 @@ rule_files:
 
 scrape_configs:
 
-
 # ==============================================================================
-#  Prometheus selbst
+#  Prometheus it self
 # ------------------------------------------------------------------------------
 
 - job_name: prometheus
@@ -21,9 +20,21 @@ scrape_configs:
   static_configs:
   - targets: ['localhost:9090']
 
-- job_name: pushgateway
-  scrape_interval: 5s
-  static_configs:
-  - targets: ['prometheus-pushgateway:9091']
+# ==============================================================================
+#  Docker service discovery
+# ------------------------------------------------------------------------------
+
+- job_name: 'docker_service_discovery' 
+  file_sd_configs:
+    - files:
+      - /prometheus-docker-sd/docker-targets.json
 
 # ==============================================================================
+# Add your exporter below
+# ------------------------------------------------------------------------------
+#
+# - job_name: your_exporter
+#   scrape_interval: 15s
+#   static_configs:
+#   - targets: ['your_hostname:9090']
+

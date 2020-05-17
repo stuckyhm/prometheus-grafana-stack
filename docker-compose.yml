@@ -6,6 +6,8 @@ services:
 # ------------------------------------------------------------------------------
   prometheus:
     image: "prom/prometheus:v2.10.0"
+    restart: unless-stopped
+    network_mode: bridge
     expose:
       - "9090"
     ports:
@@ -13,6 +15,8 @@ services:
     volumes:
        - ./prometheus/config:/etc/prometheus:ro
        - ./prometheus/data:/prometheus:rw
+    volumes_from:
+       - prometheus-docker-sd:ro
     command: [
        "--config.file=/etc/prometheus/prometheus.yml",
        "--storage.tsdb.path=/prometheus",
@@ -22,24 +26,94 @@ services:
     ]
     depends_on:
       - prometheus-pushgateway
+      - cadvisor
+      - node-exporter
     links:
       - "prometheus-pushgateway"
+      - "cadvisor"
+      - "node-exporter"
+
+# ==============================================================================
+# prometheus-docker-sd
+# ------------------------------------------------------------------------------ 
+  prometheus-docker-sd:
+    image: "stucky/prometheus-docker-sd:latest"
+    restart: unless-stopped
+    network_mode: bridge
+    volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
 
 # ==============================================================================
 # prometheus-pushgateway
 # ------------------------------------------------------------------------------ 
   prometheus-pushgateway:
     image: "prom/pushgateway:v0.8.0"
+    restart: unless-stopped
+    network_mode: bridge
+    labels:
+      prometheus-scrape.enabled:         "true"
+      prometheus-scrape.job_name:        "prometheus-pushgateway"
+      prometheus-scrape.port:            9091
+      prometheus-scrape.metrics_path:    "/metrics"
     expose:
       - "9091"
     ports:
       - "9091:9091"
 
 # ==============================================================================
+# node-exporter
+# ------------------------------------------------------------------------------ 
+  node-exporter:
+    image: prom/node-exporter:latest
+    restart: unless-stopped
+    network_mode: bridge
+    labels:
+      prometheus-scrape.enabled:         "true"
+      prometheus-scrape.job_name:        "node-exporter"
+      prometheus-scrape.port:            9100
+      prometheus-scrape.metrics_path:    "/metrics"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    expose:
+      - "9100"
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--path.rootfs=/rootfs'
+
+# ==============================================================================
+# cAdvisor
+# ------------------------------------------------------------------------------
+  cadvisor:
+    image: gcr.io/google-containers/cadvisor:v0.35.0
+    restart: always
+    network_mode: bridge
+    labels:
+      prometheus-scrape.enabled:         "true"
+      prometheus-scrape.job_name:        "cadvisor"
+      prometheus-scrape.port:            8080
+      prometheus-scrape.metrics_path:    "/metrics"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    expose:
+      - "8080"
+# Remove comment, if you want access the cAdvisor-WebGui
+#    ports:
+#      - "8080:8080"
+
+# ==============================================================================
 # grafana
 # ------------------------------------------------------------------------------       
   grafana:
     image: "grafana/grafana:6.7.1"
+    restart: unless-stopped
+    network_mode: bridge
     expose:
       - "3000"
     ports:
