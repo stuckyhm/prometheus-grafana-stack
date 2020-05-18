@@ -12,6 +12,7 @@
 ## How to use it? 
 ```
 git clone git@github.com:stuckyhm/prometheus-grafana-stack.git
+cd prometheus-grafana-stack
 docker-compose up
 ```
 
