@@ -1,7 +1,7 @@
 ```mermaid
 graph TD
 Z(your Browser) -- :3000 --> A(Prometheus)
-K[prometheus-docker-sd] --> A
+K[prometheus-docker-sd] --> B
 A[Grafana] -- :9090 --> B[Prometheus]
 A --> C(other Datasources)
 A --> L(other Datasources)

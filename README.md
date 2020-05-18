@@ -8,20 +8,20 @@
 * [pushgateway](https://github.com/prometheus/pushgateway) - for things witch can't provide metrics themselves
 * [prometheus-docker-sd](https://github.com/stuckyhm/prometheus-docker-sd) - automated service discovery for prometheus
 
-
-
 ![Diagram](/docs/diagram.png)
 ## How to use it? 
 ```
 git clone git@github.com:stuckyhm/prometheus-grafana-stack.git
 docker-compose up
 ```
+
+### Metrics via Service Discovery
 Add the following labels to your containers.
 | label                            | mandatory | default          | description                                         |
 | -------------------------------- | :-------: | ---------------- | --------------------------------------------------- |
 | prometheus-scrape.enabled        |       yes |                  | Must set to "true" for enabled.                     |
 | prometheus-scrape.job_name       |        no | <Container-Name> | Content for the prometheus label "job".             |
-| prometheus-scrape.hostname       |        no | <Container-Name> | Hostname, if it differs from the container name.    |
+| prometheus-scrape.hostname       |        no | <Container-Name> | Hostname, if it differs from the container name or for access via the public interface.    |
 | prometheus-scrape.ip_as_hostname |        no |            false | Use the container ip instead of the container name. |
 | prometheus-scrape.port           |        no |             9090 | Port of the metrics endpoint.                       |
 | prometheus-scrape.scheme         |        no |             http | Scheme http or https                                |
@@ -36,7 +36,12 @@ Push a simple metric:
 ```
 echo "some_metric 3.14" | curl --data-binary @- http://127.0.0.1:9091/metrics/job/some_job
 ```
-More Sample at https://github.com/prometheus/pushgateway
+
+![Diagram](/docs/pushgateway.png)
+
+More Samples at https://github.com/prometheus/pushgateway
+
+**Important: The Container has to be in the same network that prometheus. At the moment, the stack is connected to default network docker0 (bridge).**
 
 ## Access the metrics
 ### Grafana
