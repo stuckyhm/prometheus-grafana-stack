@@ -103,7 +103,7 @@ services:
       - /dev/disk/:/dev/disk:ro
     expose:
       - "8080"
-# Remove comment, if you want access the cAdvisor-WebGui
+# Remove comment, if you want to access the cAdvisor-WebGui
 #    ports:
 #      - "8080:8080"
 
@@ -111,7 +111,7 @@ services:
 # grafana
 # ------------------------------------------------------------------------------       
   grafana:
-    image: "grafana/grafana:6.7.1"
+    image: "grafana/grafana:7.1.5"
     restart: unless-stopped
     network_mode: bridge
     expose:
