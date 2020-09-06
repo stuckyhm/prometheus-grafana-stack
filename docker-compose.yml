@@ -1,28 +1,32 @@
-version: '2'
-services:
+version: '3.7'
 
 # ==============================================================================
+# Services
+# ------------------------------------------------------------------------------       
+services:
+
+# ------------------------------------------------------------------------------       
 # prometheus
 # ------------------------------------------------------------------------------
   prometheus:
     image: "prom/prometheus:v2.10.0"
     restart: unless-stopped
-    network_mode: bridge
+    networks:
+      - internal
     expose:
       - "9090"
     ports:
       - "9090:9090"
     volumes:
-       - ./prometheus/config:/etc/prometheus:ro
-       - ./prometheus/data:/prometheus:rw
-    volumes_from:
-       - prometheus-docker-sd:ro
+      - ./prometheus/config:/etc/prometheus:ro
+      - ./prometheus/data:/prometheus:rw
+      - prometheus-docker-sd:/prometheus-docker-sd:ro
     command: [
-       "--config.file=/etc/prometheus/prometheus.yml",
-       "--storage.tsdb.path=/prometheus",
-       "--storage.tsdb.retention.time=15d",
-       "--web.console.libraries=/usr/share/prometheus/console_libraries",
-       "--web.console.templates=/usr/share/prometheus/consoles"
+      "--config.file=/etc/prometheus/prometheus.yml",
+      "--storage.tsdb.path=/prometheus",
+      "--storage.tsdb.retention.time=15d",
+      "--web.console.libraries=/usr/share/prometheus/console_libraries",
+      "--web.console.templates=/usr/share/prometheus/consoles"
     ]
     depends_on:
       - prometheus-pushgateway
@@ -33,23 +37,26 @@ services:
       - "cadvisor"
       - "node-exporter"
 
-# ==============================================================================
+# ------------------------------------------------------------------------------       
 # prometheus-docker-sd
 # ------------------------------------------------------------------------------ 
   prometheus-docker-sd:
     image: "stucky/prometheus-docker-sd:latest"
     restart: unless-stopped
-    network_mode: bridge
+    networks:
+      - internal
     volumes:
-        - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock
+      - prometheus-docker-sd:/prometheus-docker-sd:rw
 
-# ==============================================================================
+# ------------------------------------------------------------------------------       
 # prometheus-pushgateway
 # ------------------------------------------------------------------------------ 
   prometheus-pushgateway:
     image: "prom/pushgateway:v0.8.0"
     restart: unless-stopped
-    network_mode: bridge
+    networks:
+      - internal
     labels:
       prometheus-scrape.enabled:         "true"
       prometheus-scrape.job_name:        "prometheus-pushgateway"
@@ -60,13 +67,14 @@ services:
     ports:
       - "9091:9091"
 
-# ==============================================================================
+# ------------------------------------------------------------------------------       
 # node-exporter
 # ------------------------------------------------------------------------------ 
   node-exporter:
     image: prom/node-exporter:latest
     restart: unless-stopped
-    network_mode: bridge
+    networks:
+      - internal
     labels:
       prometheus-scrape.enabled:         "true"
       prometheus-scrape.job_name:        "node-exporter"
@@ -83,13 +91,16 @@ services:
       - '--path.sysfs=/host/sys'
       - '--path.rootfs=/rootfs'
 
-# ==============================================================================
+# ------------------------------------------------------------------------------       
 # cAdvisor
 # ------------------------------------------------------------------------------
   cadvisor:
     image: gcr.io/google-containers/cadvisor:v0.35.0
     restart: always
-    network_mode: bridge
+    networks:
+      hostnet: {}
+    networks:
+      - internal
     labels:
       prometheus-scrape.enabled:         "true"
       prometheus-scrape.job_name:        "cadvisor"
@@ -107,13 +118,14 @@ services:
 #    ports:
 #      - "8080:8080"
 
-# ==============================================================================
+# ------------------------------------------------------------------------------       
 # grafana
 # ------------------------------------------------------------------------------       
   grafana:
     image: "grafana/grafana:7.1.5"
     restart: unless-stopped
-    network_mode: bridge
+    networks:
+      - internal
     expose:
       - "3000"
     ports:
@@ -129,3 +141,26 @@ services:
       - prometheus
     links:
       - "prometheus"
+
+# ==============================================================================
+
+
+# ==============================================================================
+# Volumes
+# ------------------------------------------------------------------------------       
+volumes:
+  prometheus-docker-sd:
+
+# ==============================================================================
+
+
+# ==============================================================================
+# Networks
+# ------------------------------------------------------------------------------       
+networks:
+ internal:
+ hostnet:
+   external: true
+   name: host
+
+# ==============================================================================
