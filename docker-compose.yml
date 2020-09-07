@@ -2,10 +2,10 @@ version: '3.7'
 
 # ==============================================================================
 # Services
-# ------------------------------------------------------------------------------       
+# ------------------------------------------------------------------------------
 services:
 
-# ------------------------------------------------------------------------------       
+# ------------------------------------------------------------------------------
 # prometheus
 # ------------------------------------------------------------------------------
   prometheus:
@@ -18,13 +18,13 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - ./prometheus/config:/etc/prometheus:ro
-      - ./prometheus/data:/prometheus:rw
+      - ${PROMETHEUS_CONFIG_DIR}:/etc/prometheus:ro
+      - ${PROMETHEUS_DATA_DIR}:/prometheus:rw
       - prometheus-docker-sd:/prometheus-docker-sd:ro
     command: [
       "--config.file=/etc/prometheus/prometheus.yml",
       "--storage.tsdb.path=/prometheus",
-      "--storage.tsdb.retention.time=15d",
+      "--storage.tsdb.retention.time=${PROMETHEUS_CONFIG_TSDB_RETENTION}",
       "--web.console.libraries=/usr/share/prometheus/console_libraries",
       "--web.console.templates=/usr/share/prometheus/consoles"
     ]
@@ -36,10 +36,16 @@ services:
       - "prometheus-pushgateway"
       - "cadvisor"
       - "node-exporter"
+    healthcheck:
+      test: ["CMD", "wget", "http://localhost:9090", "-qSO", "/dev/null"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
 
-# ------------------------------------------------------------------------------       
+# ------------------------------------------------------------------------------
 # prometheus-docker-sd
-# ------------------------------------------------------------------------------ 
+# ------------------------------------------------------------------------------
   prometheus-docker-sd:
     image: "stucky/prometheus-docker-sd:latest"
     restart: unless-stopped
@@ -49,9 +55,9 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - prometheus-docker-sd:/prometheus-docker-sd:rw
 
-# ------------------------------------------------------------------------------       
+# ------------------------------------------------------------------------------
 # prometheus-pushgateway
-# ------------------------------------------------------------------------------ 
+# ------------------------------------------------------------------------------
   prometheus-pushgateway:
     image: "prom/pushgateway:v0.8.0"
     restart: unless-stopped
@@ -66,10 +72,16 @@ services:
       - "9091"
     ports:
       - "9091:9091"
+    healthcheck:
+      test: ["CMD", "wget", "http://localhost:9091", "-qSO", "/dev/null"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
 
-# ------------------------------------------------------------------------------       
+# ------------------------------------------------------------------------------
 # node-exporter
-# ------------------------------------------------------------------------------ 
+# ------------------------------------------------------------------------------
   node-exporter:
     image: prom/node-exporter:latest
     restart: unless-stopped
@@ -90,15 +102,19 @@ services:
       - '--path.procfs=/host/proc'
       - '--path.sysfs=/host/sys'
       - '--path.rootfs=/rootfs'
+    healthcheck:
+      test: ["CMD", "wget", "http://localhost:9100", "-qSO", "/dev/null"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
 
-# ------------------------------------------------------------------------------       
+# ------------------------------------------------------------------------------
 # cAdvisor
 # ------------------------------------------------------------------------------
   cadvisor:
     image: gcr.io/google-containers/cadvisor:v0.35.0
     restart: always
-    networks:
-      hostnet: {}
     networks:
       - internal
     labels:
@@ -117,10 +133,16 @@ services:
 # Remove comment, if you want to access the cAdvisor-WebGui
 #    ports:
 #      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "wget", "http://localhost:8080/containers", "-qSO", "/dev/null"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
 
-# ------------------------------------------------------------------------------       
+# ------------------------------------------------------------------------------
 # grafana
-# ------------------------------------------------------------------------------       
+# ------------------------------------------------------------------------------
   grafana:
     image: "grafana/grafana:7.1.5"
     restart: unless-stopped
@@ -131,23 +153,29 @@ services:
     ports:
       - "3000:3000"
     environment:
-      GF_INSTALL_PLUGINS:         "flant-statusmap-panel,bessler-pictureit-panel,pierosavi-imageit-panel,agenty-flowcharting-panel,larona-epict-panel,marcuscalidus-svg-panel,neocat-cal-heatmap-panel,digiapulssi-breadcrumb-panel,michaeldmoore-multistat-panel,grafana-piechart-panel,grafana-worldmap-panel,grafana-clock-panel,ryantxu-annolist-panel,farski-blendstat-panel,yesoreyeram-boomtable-panel,neocat-cal-heatmap-panel,petrslavotinek-carpetplot-panel,jdbranham-diagram-panel,natel-discrete-panel,simpod-json-datasource,zuburqan-parity-report-panel,natel-plotly-panel,corpglory-progresslist-panel,mxswat-separator-panel,vonage-status-panel,marcuscalidus-svg-panel,btplc-trend-box-panel,blackmirror1-statusbygroup-panel,btplc-status-dot-panel,grafana-polystat-panel"
-      GF_SECURITY_ADMIN_PASSWORD: "password"
+      GF_INSTALL_PLUGINS:         "${GRAFANA_INSTALL_PLUGINS}"
+      GF_SECURITY_ADMIN_PASSWORD: "${GRAFANA_INITIAL_ADMIN_PASSWORD}"
     volumes:
-      - ./grafana/config:/etc/grafana:rw
-      - ./grafana/data:/var/lib/grafana:rw
-      - ./grafana/log:/var/log/grafana:rw
+      - ${GRAFANA_CONFIG_DIR}:/etc/grafana:rw
+      - ${GRAFANA_DATA_DIR}:/var/lib/grafana:rw
+      - ${GRAFANA_LOG_DIR}:/var/log/grafana:rw
     depends_on:
       - prometheus
     links:
       - "prometheus"
+    healthcheck:
+      test: ["CMD", "wget", "http://localhost:3000", "-qSO", "/dev/null"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 4s
 
 # ==============================================================================
 
 
 # ==============================================================================
 # Volumes
-# ------------------------------------------------------------------------------       
+# ------------------------------------------------------------------------------
 volumes:
   prometheus-docker-sd:
 
@@ -156,11 +184,8 @@ volumes:
 
 # ==============================================================================
 # Networks
-# ------------------------------------------------------------------------------       
+# ------------------------------------------------------------------------------
 networks:
  internal:
- hostnet:
-   external: true
-   name: host
 
 # ==============================================================================
