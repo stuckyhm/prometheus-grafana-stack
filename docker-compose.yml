@@ -93,14 +93,14 @@ services:
       prometheus-scrape.port:            9100
       prometheus-scrape.metrics_path:    "/metrics"
     volumes:
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
+      - /proc:/rootfs/proc:ro
+      - /sys:/rootfs/sys:ro
       - /:/rootfs:ro
     expose:
       - "9100"
     command:
-      - '--path.procfs=/host/proc'
-      - '--path.sysfs=/host/sys'
+      - '--path.procfs=/rootfs/proc'
+      - '--path.sysfs=/rootfs/sys'
       - '--path.rootfs=/rootfs'
     healthcheck:
       test: ["CMD", "wget", "http://localhost:9100", "-qSO", "/dev/null"]
@@ -113,7 +113,7 @@ services:
 # cAdvisor
 # ------------------------------------------------------------------------------
   cadvisor:
-    image: gcr.io/google-containers/cadvisor:v0.35.0
+    image: gcr.io/google-containers/cadvisor:v0.36.0
     restart: always
     networks:
       - internal
@@ -122,6 +122,9 @@ services:
       prometheus-scrape.job_name:        "cadvisor"
       prometheus-scrape.port:            8080
       prometheus-scrape.metrics_path:    "/metrics"
+    privileged: true
+    devices:
+      - /dev/kmsg
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:ro
@@ -168,7 +171,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-      start_period: 4s
+      start_period: 90s
 
 # ==============================================================================
 
@@ -189,3 +192,4 @@ networks:
  internal:
 
 # ==============================================================================
+ 
