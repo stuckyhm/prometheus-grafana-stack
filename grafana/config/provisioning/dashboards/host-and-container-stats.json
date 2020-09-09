@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 1,
-  "iteration": 1599580780693,
+  "iteration": 1599640134638,
   "links": [],
   "panels": [
     {
@@ -980,15 +980,15 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(node_network_receive_bytes_total{instance=~\"$host.*\",device=~\"(lo|en|eth|wl|tun|br|vmbr).*\"}[5m])) by (container_name, device)",
+          "expr": "sum(rate(container_network_receive_bytes_total{id=\"/\"}[5m])) by (name, interface)",
           "interval": "",
-          "legendFormat": "IN on {{device}}",
+          "legendFormat": "IN on {{interface}}",
           "refId": "D"
         },
         {
-          "expr": "-sum(rate(node_network_transmit_bytes_total{instance=~\"$host.*\",device=~\"(lo|en|eth|wl|tun|br|vmbr).*\"}[5m])) by (container_name, device)",
+          "expr": "-sum(rate(container_network_transmit_bytes_total{id=\"/\"}[5m])) by (name, interface)",
           "interval": "",
-          "legendFormat": "OUT on {{device}}",
+          "legendFormat": "OUT on {{interface}}",
           "refId": "A"
         }
       ],
@@ -1615,5 +1615,5 @@
   "timezone": "",
   "title": "Host and Container Stats",
   "uid": "512mDiRMk",
-  "version": 2
+  "version": 3
 }
