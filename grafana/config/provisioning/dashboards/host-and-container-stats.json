@@ -15,8 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 1,
-  "id": 3,
-  "iteration": 1589794817298,
+  "iteration": 1599640134638,
   "links": [],
   "panels": [
     {
@@ -45,6 +44,12 @@
       ],
       "datasource": "Prometheus",
       "decimals": 1,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "percentunit",
       "gauge": {
         "maxValue": 100,
@@ -122,6 +127,34 @@
     },
     {
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 1,
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 60
+              },
+              {
+                "color": "red",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 4,
         "w": 4,
@@ -130,42 +163,18 @@
       },
       "id": 13,
       "options": {
-        "fieldOptions": {
+        "orientation": "auto",
+        "reduceOptions": {
           "calcs": [
             "last"
           ],
-          "defaults": {
-            "decimals": 1,
-            "mappings": [],
-            "max": 100,
-            "min": 0,
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "#EAB839",
-                  "value": 60
-                },
-                {
-                  "color": "red",
-                  "value": 90
-                }
-              ]
-            },
-            "unit": "percent"
-          },
-          "overrides": [],
+          "fields": "",
           "values": false
         },
-        "orientation": "auto",
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "6.7.1",
+      "pluginVersion": "7.1.5",
       "targets": [
         {
           "expr": "avg(((node_memory_MemTotal_bytes{instance=~\"$host.*\"} - node_memory_MemAvailable_bytes{instance=~\"$host.*\"}) / node_memory_MemTotal_bytes{instance=~\"$host.*\"}) * 100) ",
@@ -181,6 +190,34 @@
     },
     {
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 1,
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 60
+              },
+              {
+                "color": "red",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 4,
         "w": 4,
@@ -189,42 +226,18 @@
       },
       "id": 14,
       "options": {
-        "fieldOptions": {
+        "orientation": "auto",
+        "reduceOptions": {
           "calcs": [
             "last"
           ],
-          "defaults": {
-            "decimals": 1,
-            "mappings": [],
-            "max": 100,
-            "min": 0,
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "#EAB839",
-                  "value": 60
-                },
-                {
-                  "color": "red",
-                  "value": 90
-                }
-              ]
-            },
-            "unit": "percent"
-          },
-          "overrides": [],
+          "fields": "",
           "values": false
         },
-        "orientation": "auto",
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "6.7.1",
+      "pluginVersion": "7.1.5",
       "targets": [
         {
           "expr": "avg(100 - (node_memory_SwapFree_bytes{instance=~'.*',instance=~\"$host.*\"} / node_memory_SwapTotal_bytes{instance=~'.*',instance=~\"$host.*\"}) * 100)",
@@ -240,6 +253,35 @@
     },
     {
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 1,
+          "displayName": "",
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 0.1
+              },
+              {
+                "color": "green",
+                "value": 0.3
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 4,
         "w": 4,
@@ -248,54 +290,30 @@
       },
       "id": 12,
       "options": {
-        "fieldOptions": {
+        "orientation": "auto",
+        "reduceOptions": {
           "calcs": [
             "last"
           ],
-          "defaults": {
-            "decimals": 1,
-            "mappings": [],
-            "max": 1,
-            "min": 0,
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "red",
-                  "value": null
-                },
-                {
-                  "color": "#EAB839",
-                  "value": 0.1
-                },
-                {
-                  "color": "green",
-                  "value": 0.3
-                }
-              ]
-            },
-            "title": "",
-            "unit": "percentunit"
-          },
-          "overrides": [],
+          "fields": "",
           "values": false
         },
-        "orientation": "auto",
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "6.7.1",
+      "pluginVersion": "7.1.5",
       "targets": [
         {
-          "expr": "min((node_filesystem_size_bytes{fstype=~\"(xfs|btrfs|ext.*)\",mountpoint=\"/var/lib/docker\",instance=~\"$host.*\"} - node_filesystem_free_bytes{fstype=~\"(xfs|btrfs|ext.*)\",mountpoint=\"/var/lib/docker\",instance=~\"$host.*\"} )/ node_filesystem_size_bytes{fstype=~\"(xfs|btrfs|ext.*)\",mountpoint=\"/var/lib/docker\",instance=~\"$host.*\"})",
+          "expr": "min((node_filesystem_size_bytes{fstype=~\"(xfs|btrfs|ext.*)\",instance=~\"$host.*\"} - node_filesystem_free_bytes{fstype=~\"(xfs|btrfs|ext.*)\",instance=~\"$host.*\"} )/ node_filesystem_size_bytes{fstype=~\"(xfs|btrfs|ext.*)\",instance=~\"$host.*\"})",
+          "hide": false,
           "interval": "",
           "legendFormat": "",
-          "refId": "B"
+          "refId": "A"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Filesystem /var/lib/docker",
+      "title": "Filesystem (sum)",
       "type": "gauge"
     },
     {
@@ -308,6 +326,12 @@
         "#d44a3a"
       ],
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -392,6 +416,12 @@
         "#d44a3a"
       ],
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "dateTimeAsIso",
       "gauge": {
         "maxValue": 100,
@@ -477,6 +507,12 @@
       ],
       "datasource": "Prometheus",
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "dateTimeFromNow",
       "gauge": {
         "maxValue": 100,
@@ -593,6 +629,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -615,10 +658,8 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
+      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -697,6 +738,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -719,10 +767,8 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
+      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -732,14 +778,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(node_memory_MemTotal_bytes{instance=~\"$host.*\"})",
+          "expr": "sum(node_memory_MemTotal_bytes{instance=~\"$host.*\"}) by (container_name)",
           "hide": true,
           "interval": "",
           "legendFormat": "Total",
           "refId": "A"
         },
         {
-          "expr": "sum(node_memory_MemTotal_bytes{instance=~\"$host.*\"} - node_memory_MemAvailable_bytes{instance=~\"$host.*\"})",
+          "expr": "sum(node_memory_MemTotal_bytes{instance=~\"$host.*\"} - node_memory_MemAvailable_bytes{instance=~\"$host.*\"}) by (container_name)",
           "interval": "",
           "legendFormat": "Use",
           "refId": "B"
@@ -793,6 +839,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -815,10 +868,8 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
+      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -828,16 +879,16 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(node_disk_written_bytes_total{device=~\"(md|sd).*\",instance=~\"$host.*\"}[1m])) by (device)",
+          "expr": "sum(rate(node_disk_written_bytes_total{device!~\"(dm-|nbd).*\",instance=~\"$host.*\"}[1m])) by (container_name, device)",
           "interval": "",
-          "legendFormat": "IN on /{{device}}",
+          "legendFormat": "/{{device}} (write)",
           "refId": "A"
         },
         {
-          "expr": "-sum(rate(node_disk_read_bytes_total{device=~\"(md|sd).*\",instance=~\"$host.*\"}[1m])) by (device)",
+          "expr": "-sum(rate(node_disk_read_bytes_total{device!~\"(dm-|nbd).*\",instance=~\"$host.*\"}[1m])) by (container_name, device)",
           "hide": false,
           "interval": "",
-          "legendFormat": "OUT on /{{device}}",
+          "legendFormat": "/{{device}} (read)",
           "refId": "B"
         }
       ],
@@ -889,6 +940,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -911,10 +969,8 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
+      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -924,15 +980,15 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(node_network_receive_bytes_total{instance=~\"$host.*\",device=~\"(lo|en|eth|wl|tun|br|vmbr).*\"}[5m])",
+          "expr": "sum(rate(container_network_receive_bytes_total{id=\"/\"}[5m])) by (name, interface)",
           "interval": "",
-          "legendFormat": "IN on {{device}}",
+          "legendFormat": "IN on {{interface}}",
           "refId": "D"
         },
         {
-          "expr": "-rate(node_network_transmit_bytes_total{instance=~\"$host.*\",device=~\"(lo|en|eth|wl|tun|br|vmbr).*\"}[5m])",
+          "expr": "-sum(rate(container_network_transmit_bytes_total{id=\"/\"}[5m])) by (name, interface)",
           "interval": "",
-          "legendFormat": "OUT on {{device}}",
+          "legendFormat": "OUT on {{interface}}",
           "refId": "A"
         }
       ],
@@ -984,6 +1040,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -1006,10 +1069,8 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
+      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1019,7 +1080,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "node_filesystem_free_bytes{fstype=~\"(btrfs|ext.*)\"}",
+          "expr": "sum(node_filesystem_free_bytes{fstype=~\"(btrfs|ext.*)\"}) by (container_name, mountpoint)",
           "interval": "",
           "legendFormat": "{{mountpoint}}",
           "refId": "A"
@@ -1072,6 +1133,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -1094,10 +1162,8 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
+      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1107,7 +1173,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(min((node_filesystem_size_bytes{fstype=~\"(xfs|btrfs|ext.*)\",instance=~\"$host.*\"} - node_filesystem_free_bytes{fstype=~\"(xfs|btrfs|ext.*)\",instance=~\"$host.*\"} )/ node_filesystem_size_bytes{fstype=~\"(xfs|btrfs|ext.*)\",instance=~\"$host.*\"})  by (mountpoint)) * 100",
+          "expr": "(min((node_filesystem_size_bytes{fstype=~\"(xfs|btrfs|ext.*)\",instance=~\"$host.*\"} - node_filesystem_free_bytes{fstype=~\"(xfs|btrfs|ext.*)\",instance=~\"$host.*\"} )/ node_filesystem_size_bytes{fstype=~\"(xfs|btrfs|ext.*)\",instance=~\"$host.*\"}) by (container_name, mountpoint)) * 100",
           "interval": "",
           "legendFormat": "{{mountpoint}}",
           "refId": "A"
@@ -1173,6 +1239,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -1195,10 +1268,8 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
+      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1261,6 +1332,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -1283,10 +1361,8 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
+      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1349,6 +1425,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -1371,10 +1454,8 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
+      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1445,8 +1526,8 @@
       }
     }
   ],
-  "refresh": false,
-  "schemaVersion": 22,
+  "refresh": "30s",
+  "schemaVersion": 26,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -1454,7 +1535,10 @@
       {
         "allValue": null,
         "current": {
-          "text": "All",
+          "selected": true,
+          "text": [
+            "All"
+          ],
           "value": [
             "$__all"
           ]
@@ -1463,7 +1547,6 @@
         "definition": "label_values(node_cpu_seconds_total, instance)",
         "hide": 0,
         "includeAll": true,
-        "index": -1,
         "label": "Host",
         "multi": true,
         "name": "host",
@@ -1482,7 +1565,10 @@
       {
         "allValue": null,
         "current": {
-          "text": "All",
+          "selected": true,
+          "text": [
+            "All"
+          ],
           "value": [
             "$__all"
           ]
@@ -1491,7 +1577,6 @@
         "definition": "label_values(container_last_seen, name)",
         "hide": 0,
         "includeAll": true,
-        "index": -1,
         "label": "Container",
         "multi": true,
         "name": "container",
@@ -1530,8 +1615,5 @@
   "timezone": "",
   "title": "Host and Container Stats",
   "uid": "512mDiRMk",
-  "variables": {
-    "list": []
-  },
-  "version": 1
+  "version": 3
 }
