@@ -1,6 +1,7 @@
 
 # prometheus-grafana-stack
-Not for production use. Only for testing.
+Not for production use. Only for testing and development.
+
 ## What's included?
 * [Prometheus](https://github.com/prometheus/prometheus) - collecting the metrics
 * [Grafana](https://github.com/grafana/grafana) - visualisation of the metrics
