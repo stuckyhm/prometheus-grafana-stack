@@ -13,6 +13,7 @@ services:
     restart: unless-stopped
     networks:
       - internal
+      - monitoring_ext
     expose:
       - "9090"
     ports:
@@ -98,6 +99,9 @@ services:
       - /:/rootfs:ro
     expose:
       - "9100"
+# Remove comment, if you want to access the Metrik-Endpoint 
+#    ports:
+#      - "9100:9100"
     command:
       - '--path.procfs=/rootfs/proc'
       - '--path.sysfs=/rootfs/sys'
@@ -157,11 +161,15 @@ services:
       - "3000:3000"
     environment:
       GF_INSTALL_PLUGINS:         "${GRAFANA_INSTALL_PLUGINS}"
+      GF_INSTALL_DASHBOARDS:      "3681,1860,12464,11955"
       GF_SECURITY_ADMIN_PASSWORD: "${GRAFANA_INITIAL_ADMIN_PASSWORD}"
     volumes:
       - ${GRAFANA_CONFIG_DIR}:/etc/grafana:rw
       - ${GRAFANA_DATA_DIR}:/var/lib/grafana:rw
       - ${GRAFANA_LOG_DIR}:/var/log/grafana:rw
+    entrypoint: [
+      "/etc/grafana/init.sh"
+    ]
     depends_on:
       - prometheus
     links:
@@ -190,6 +198,9 @@ volumes:
 # ------------------------------------------------------------------------------
 networks:
  internal:
+ monitoring_ext:
+   external: true
+   name: monitoring_ext
 
 # ==============================================================================
  

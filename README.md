@@ -1,5 +1,6 @@
 
 # prometheus-grafana-stack
+Not for production use. Only for testing.
 ## What's included?
 * [Prometheus](https://github.com/prometheus/prometheus) - collecting the metrics
 * [Grafana](https://github.com/grafana/grafana) - visualisation of the metrics
@@ -13,6 +14,7 @@
 ```
 git clone git@github.com:stuckyhm/prometheus-grafana-stack.git
 cd prometheus-grafana-stack
+docker network create monitoring_ext
 docker-compose up
 ```
 

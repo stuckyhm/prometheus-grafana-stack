@@ -1,10 +1,10 @@
 apiVersion: 1
 
 datasources:
-- name: Prometheus
+- name: prometheus
   type: prometheus
   url: http://prometheus:9090
   is_default: true
-  editable: true
+  editable: false
   org_id: 1
   version: 1

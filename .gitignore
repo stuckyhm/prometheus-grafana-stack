@@ -1,3 +1,5 @@
 prometheus/data
 grafana/data
 grafana/log
+autoinstall-*
+grafana/grafana.db
