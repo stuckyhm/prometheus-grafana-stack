@@ -181,6 +181,32 @@ services:
       retries: 5
       start_period: 90s
 
+# ------------------------------------------------------------------------------
+# influxdb
+# ------------------------------------------------------------------------------
+#  influxdb:
+#    image: influxdb:1.8.2
+#    restart: unless-stopped
+#    networks:
+#      - internal
+#    labels:
+#      prometheus-scrape.enabled:         "true"
+#      prometheus-scrape.job_name:        "influxdb"
+#      prometheus-scrape.port:            8086
+#      prometheus-scrape.metrics_path:    "/metrics"
+#    volumes:
+#      - ${INFLUXDB_DATA_DIR}:/var/lib/influxdb:rw
+#    expose:
+#      - "8086"
+#    ports:
+#      - "8086:8086"
+#    healthcheck:
+#      test: ["CMD", "wget", "http://localhost:8086/health", "-qSO", "/dev/null"]
+#      interval: 30s
+#      timeout: 10s
+#      retries: 5
+#      start_period: 40s
+
 # ==============================================================================
 
 

@@ -30,7 +30,7 @@ scrape_configs:
       - /prometheus-docker-sd/docker-targets.json
 
 # ==============================================================================
-# Add your exporter below
+# Add your exporter here
 # ------------------------------------------------------------------------------
 #
 # - job_name: your_exporter
@@ -38,3 +38,12 @@ scrape_configs:
 #   static_configs:
 #   - targets: ['your_hostname:9090']
 
+# ==============================================================================
+# InfluxDB-Backend
+# ------------------------------------------------------------------------------
+#
+#remote_write:
+#  - url: "http://influxdb:8086/api/v1/prom/write?db=prometheus"
+#
+#remote_read:
+#  - url: "http://influxdb:8086/api/v1/prom/read?db=prometheus"
