@@ -1,3 +1,4 @@
+.DS_Store
 prometheus/data
 grafana/data
 grafana/log

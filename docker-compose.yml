@@ -9,7 +9,7 @@ services:
 # prometheus
 # ------------------------------------------------------------------------------
   prometheus:
-    image: "prom/prometheus:v2.10.0"
+    image: "prom/prometheus:v2.29.0"
     restart: unless-stopped
     networks:
       - internal
@@ -60,7 +60,7 @@ services:
 # prometheus-pushgateway
 # ------------------------------------------------------------------------------
   prometheus-pushgateway:
-    image: "prom/pushgateway:v0.8.0"
+    image: "prom/pushgateway:v1.4.1"
     restart: unless-stopped
     networks:
       - internal
@@ -84,7 +84,7 @@ services:
 # node-exporter
 # ------------------------------------------------------------------------------
   node-exporter:
-    image: prom/node-exporter:latest
+    image: prom/node-exporter:v1.2.1
     restart: unless-stopped
     networks:
       - internal
@@ -99,7 +99,7 @@ services:
       - /:/rootfs:ro
     expose:
       - "9100"
-# Remove comment, if you want to access the Metrik-Endpoint 
+# Remove comment, if you want to access the Metrik-Endpoint
 #    ports:
 #      - "9100:9100"
     command:
@@ -151,7 +151,7 @@ services:
 # grafana
 # ------------------------------------------------------------------------------
   grafana:
-    image: "grafana/grafana:7.1.5"
+    image: "grafana/grafana:8.1.1"
     restart: unless-stopped
     networks:
       - internal
@@ -185,7 +185,7 @@ services:
 # influxdb
 # ------------------------------------------------------------------------------
 #  influxdb:
-#    image: influxdb:1.8.2
+#    image: influxdb:1.8.7
 #    restart: unless-stopped
 #    networks:
 #      - internal
@@ -229,4 +229,4 @@ networks:
    name: monitoring_ext
 
 # ==============================================================================
- 
+
