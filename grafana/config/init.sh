@@ -8,9 +8,9 @@ function downloadDashboard() {
 	ID=$1
 
 	URL=$(wget -O - ${BASE_URL}/dashboards/${ID}/revisions 2>/dev/null | grep "revisions/[0-9]*\"" | tail -n 1 | cut -d '"' -f 4)
-	NAME=$(wget -O - ${BASE_URL}/${URL} | grep dashboardSlug | tail -n 1 | cut -d '"' -f 4)
+	NAME=$(wget -O - ${BASE_URL}${URL} | grep dashboardSlug | tail -n 1 | cut -d '"' -f 4)
 
-	wget -O ${TARGET_DIR}/${PREFIX}-${ID}-${NAME}.json ${BASE_URL}/${URL}/download
+	wget -O ${TARGET_DIR}/${PREFIX}-${ID}-${NAME}.json ${BASE_URL}${URL}/download
 }
 
 rm ${TARGET_DIR}/${PREFIX}-*

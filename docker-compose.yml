@@ -9,7 +9,7 @@ services:
 # prometheus
 # ------------------------------------------------------------------------------
   prometheus:
-    image: "prom/prometheus:v2.29.0"
+    image: "prom/prometheus:v2.32.1"
     restart: unless-stopped
     networks:
       - internal
@@ -60,7 +60,7 @@ services:
 # prometheus-pushgateway
 # ------------------------------------------------------------------------------
   prometheus-pushgateway:
-    image: "prom/pushgateway:v1.4.1"
+    image: "prom/pushgateway:v1.4.2"
     restart: unless-stopped
     networks:
       - internal
@@ -84,7 +84,7 @@ services:
 # node-exporter
 # ------------------------------------------------------------------------------
   node-exporter:
-    image: prom/node-exporter:v1.2.1
+    image: prom/node-exporter:v1.3.1
     restart: unless-stopped
     networks:
       - internal
@@ -151,7 +151,7 @@ services:
 # grafana
 # ------------------------------------------------------------------------------
   grafana:
-    image: "grafana/grafana:8.1.1"
+    image: "grafana/grafana:8.3.3"
     restart: unless-stopped
     networks:
       - internal
